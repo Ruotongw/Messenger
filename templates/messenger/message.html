@@ -1,0 +1,62 @@
+{% extends 'messenger/base.html' %}
+
+{% block content %}
+<h1>Create a message</h1>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+{% if user.is_authenticated %}
+<form action="{% url 'newMessage' %}" method="post">
+	{% csrf_token %}
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Sender:</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" name="sender" value="{{user.username}}" readonly>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Text:</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="message" value="{{message.text}}">{{message.text}}</textarea>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Receiver:</label>
+    <select class="form-control" id="exampleFormControlSelect1" name="receiver">
+      {% for name in users %}
+		    <option value="{{name.username}}">{{name.username}}</option>
+	 {% endfor %}
+    </select>
+  </div> 
+   <div class="form-group">
+    <label for="exampleFormControlSelect2">Receiver:</label>
+    <select class="form-control" id="exampleFormControlSelect2" name="sent">
+      <option value="False">Save for draft</option>
+	  <option value="True">Send now</option>
+    </select>
+  </div> 
+  <button class="btn btn-primary" value="send" type="submit">Confirm</button>
+</form>
+{% else %}
+    <p>You need to log in</p>
+{% endif %}
+{% endblock %}
+
+<!-- 
+{% if user.is_authenticated %}
+	<form action="{% url 'newMessage' %}" method="post">
+	{% csrf_token %}
+		<input type="text" name="sender" value="{{user.username}}" readonly>
+	    <input type="text" name="message" value="{{message.text}}">{{message.text}}</input>
+	    <select name="receiver">
+	    	{% for name in users %}
+		    	<option value="{{name.username}}">{{name.username}}</option>
+		    {% endfor %}
+		</select>
+		<select name="sent">
+		    	<option value="False">Save for later</option>
+		    	<option value="True">Send now</option>
+		</select>
+		<button><input type="submit" value="send">Confirm</input></button>
+	</form>
+{% else %}
+    <p>You need to log in</p>
+{% endif %} -->
+
+
+   

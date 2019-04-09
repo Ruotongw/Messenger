@@ -1,0 +1,64 @@
+{% extends 'messenger/base.html' %}
+
+{% block content %}
+  <h2>{{ user.username }}'s Received messages</h2>
+	    <table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">Sender</th>
+		      <th scope="col">Text</th>
+		      <th scope="col">Date</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	{% for message in receive %}
+			    <tr>
+			      <td>{{message.sender}}</td>
+			      <td>{{message.text}}</td>
+			      <td>{{message.date}}</td>
+			    </tr>
+			{% endfor %}
+		  </tbody>
+		</table>
+  <h2>{{ user.username }}'s Sent messages</h2>
+  		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">Receiver</th>
+		      <th scope="col">Text</th>
+		      <th scope="col">Date</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	{% for message in sent %}
+			    <tr>
+			      <td>{{message.receiver}}</td>
+			      <td>{{message.text}}</td>
+			      <td>{{message.date}}</td>
+			    </tr>
+			{% endfor %}
+		  </tbody>
+		</table>
+  <h2>{{ user.username }}'s Drafts</h2>
+  		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">Receiver</th>
+		      <th scope="col">Text</th>
+		      <th scope="col">Date</th>
+		      <th scope="col">Edit</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	{% for message in drafts %}
+			    <tr>
+			      <td>{{message.receiver}}</td>
+			      <td>{{message.text}}</td>
+			      <td>{{message.date}}</td>
+			      <td><a href="/{{message.id}}">Edit/Send</a></td>
+			    </tr>
+			{% endfor %}
+		  </tbody>
+		</table>
+{% endblock %}
+
